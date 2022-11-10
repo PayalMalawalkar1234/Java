@@ -1,0 +1,317 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use Empdb;
+Database changed
+mysql> create table TV(
+    -> model_no int not null,
+    -> model_name varchar(20) not null,
+    -> model_price int not null,
+    -> primary key(model_no));
+Query OK, 0 rows affected (0.44 sec)
+
+mysql> create table Laptops(
+    -> l_no int not null,
+    -> l_name varchar(30) not null,
+    -> l_price int not null,
+    -> primary key(l_no));
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> desc TV;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| model_no    | int         | NO   | PRI | NULL    |       |
+| model_name  | varchar(20) | NO   |     | NULL    |       |
+| model_price | int         | NO   |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.08 sec)
+
+mysql> desc Laptops;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| l_no    | int         | NO   | PRI | NULL    |       |
+| l_name  | varchar(30) | NO   |     | NULL    |       |
+| l_price | int         | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into TV values(101,"Samsung",40000);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into TV values(102,"Sony",50000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into TV values(103,"MI",35000);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into TV values(104,"TCL",50000);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into TV values(105,"Panasonic",65000);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into Laptops values(201,"Dell",30000);
+Query OK, 1 row affected (0.07 sec)
+
+
+mysql> insert into Laptops values(202,"Samsung",40000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into Laptops values(203,"Asus",50000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Laptops values(204,"Sony",34000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into Laptops values(205,"Apple",80000);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select *from TV;
++----------+------------+-------------+
+| model_no | model_name | model_price |
++----------+------------+-------------+
+|      101 | Samsung    |       40000 |
+|      102 | Sony       |       50000 |
+|      103 | MI         |       35000 |
+|      104 | TCL        |       50000 |
+|      105 | Panasonic  |       65000 |
++----------+------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select *from Laptops;
++------+---------+---------+
+| l_no | l_name  | l_price |
++------+---------+---------+
+|  201 | Dell    |   30000 |
+|  202 | Samsung |   40000 |
+|  203 | Asus    |   50000 |
+|  204 | Sony    |   34000 |
+|  205 | Apple   |   80000 |
++------+---------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select TV.model_no,TV.model_name,Laptops.l_no,Laptops.l_name
+    -> from TV
+    -> INNER JOIN Laptops
+    -> ON TV.model_no=Laptops.l_no;
+Empty set (0.00 sec)
+
+
+mysql> drop table Laptops;
+Query OK, 0 rows affected (0.43 sec)
+
+
+mysql> desc Laptops;
+ERROR 1146 (42S02): Table 'empdb.laptops' doesn't exist
+mysql> create table Laptops(
+    -> l_no int not null,
+    ->  l_name varchar(30) not null,
+    ->  l_price int not null,
+    ->  primary key(l_no));
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> desc Laptops;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| l_no    | int         | NO   | PRI | NULL    |       |
+| l_name  | varchar(30) | NO   |     | NULL    |       |
+| l_price | int         | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql>  insert into Laptops values(101,"Dell",30000);
+Query OK, 1 row affected (0.06 sec)
+
+
+mysql> insert into Laptops values(102,"Samsung",40000);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into Laptops values(103,"Apple",80000);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into Laptops values(104,"Lenovo",30000);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into Laptops values(105,"HP",50000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select *from Laptops;
++------+---------+---------+
+| l_no | l_name  | l_price |
++------+---------+---------+
+|  101 | Dell    |   30000 |
+|  102 | Samsung |   40000 |
+|  103 | Apple   |   80000 |
+|  104 | Lenovo  |   30000 |
+|  105 | HP      |   50000 |
++------+---------+---------+
+5 rows in set (0.00 sec)
+
+
+mysql> select TV.model_name,TV.model_price,Laptops.l_name,Laptops.l_price
+    ->  from TV
+    -> INNER JOIN Laptops
+    -> ON TV.model_no=Laptops.l_no;
++------------+-------------+---------+---------+
+| model_name | model_price | l_name  | l_price |
++------------+-------------+---------+---------+
+| Samsung    |       40000 | Dell    |   30000 |
+| Sony       |       50000 | Samsung |   40000 |
+| MI         |       35000 | Apple   |   80000 |
+| TCL        |       50000 | Lenovo  |   30000 |
+| Panasonic  |       65000 | HP      |   50000 |
++------------+-------------+---------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select TV.model_name,Laptops.l_name
+    -> from TV
+    -> RIGHT JOIN Laptops
+    -> ON TV.model_no=Laptops.l_no;
++------------+---------+
+| model_name | l_name  |
++------------+---------+
+| Samsung    | Dell    |
+| Sony       | Samsung |
+| MI         | Apple   |
+| TCL        | Lenovo  |
+| Panasonic  | HP      |
++------------+---------+
+5 rows in set (0.06 sec)
+
+mysql> insert into Laptops values(106,"DellVostro",50000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into Laptops values(107,"Sony",50000);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select TV.model_name,Laptops.l_name
+    -> from TV
+    -> RIGHT JOIN Laptops
+    ->  ON TV.model_no=Laptops.l_no;
++------------+------------+
+| model_name | l_name     |
++------------+------------+
+| Samsung    | Dell       |
+| Sony       | Samsung    |
+| MI         | Apple      |
+| TCL        | Lenovo     |
+| Panasonic  | HP         |
+| NULL       | DellVostro |
+| NULL       | Sony       |
++------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select TV.model_name,TV.model_price,Laptops.l_name,Laptops.l_price
+    -> from TV
+    -> ON TV.model_no=Laptops.l_no;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ON TV.model_no=Laptops.l_no' at line 3
+mysql> select *from TV;
++----------+------------+-------------+
+| model_no | model_name | model_price |
++----------+------------+-------------+
+|      101 | Samsung    |       40000 |
+|      102 | Sony       |       50000 |
+|      103 | MI         |       35000 |
+|      104 | TCL        |       50000 |
+|      105 | Panasonic  |       65000 |
++----------+------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select *from TV full join Laptops;
++----------+------------+-------------+------+------------+---------+
+| model_no | model_name | model_price | l_no | l_name     | l_price |
++----------+------------+-------------+------+------------+---------+
+|      105 | Panasonic  |       65000 |  101 | Dell       |   30000 |
+|      104 | TCL        |       50000 |  101 | Dell       |   30000 |
+|      103 | MI         |       35000 |  101 | Dell       |   30000 |
+|      102 | Sony       |       50000 |  101 | Dell       |   30000 |
+|      101 | Samsung    |       40000 |  101 | Dell       |   30000 |
+|      105 | Panasonic  |       65000 |  102 | Samsung    |   40000 |
+|      104 | TCL        |       50000 |  102 | Samsung    |   40000 |
+|      103 | MI         |       35000 |  102 | Samsung    |   40000 |
+|      102 | Sony       |       50000 |  102 | Samsung    |   40000 |
+|      101 | Samsung    |       40000 |  102 | Samsung    |   40000 |
+|      105 | Panasonic  |       65000 |  103 | Apple      |   80000 |
+|      104 | TCL        |       50000 |  103 | Apple      |   80000 |
+|      103 | MI         |       35000 |  103 | Apple      |   80000 |
+|      102 | Sony       |       50000 |  103 | Apple      |   80000 |
+|      101 | Samsung    |       40000 |  103 | Apple      |   80000 |
+|      105 | Panasonic  |       65000 |  104 | Lenovo     |   30000 |
+|      104 | TCL        |       50000 |  104 | Lenovo     |   30000 |
+|      103 | MI         |       35000 |  104 | Lenovo     |   30000 |
+|      102 | Sony       |       50000 |  104 | Lenovo     |   30000 |
+|      101 | Samsung    |       40000 |  104 | Lenovo     |   30000 |
+|      105 | Panasonic  |       65000 |  105 | HP         |   50000 |
+|      104 | TCL        |       50000 |  105 | HP         |   50000 |
+|      103 | MI         |       35000 |  105 | HP         |   50000 |
+|      102 | Sony       |       50000 |  105 | HP         |   50000 |
+|      101 | Samsung    |       40000 |  105 | HP         |   50000 |
+|      105 | Panasonic  |       65000 |  106 | DellVostro |   50000 |
+|      104 | TCL        |       50000 |  106 | DellVostro |   50000 |
+|      103 | MI         |       35000 |  106 | DellVostro |   50000 |
+|      102 | Sony       |       50000 |  106 | DellVostro |   50000 |
+|      101 | Samsung    |       40000 |  106 | DellVostro |   50000 |
+|      105 | Panasonic  |       65000 |  107 | Sony       |   50000 |
+|      104 | TCL        |       50000 |  107 | Sony       |   50000 |
+|      103 | MI         |       35000 |  107 | Sony       |   50000 |
+|      102 | Sony       |       50000 |  107 | Sony       |   50000 |
+|      101 | Samsung    |       40000 |  107 | Sony       |   50000 |
++----------+------------+-------------+------+------------+---------+
+35 rows in set (0.06 sec)
+
+mysql> select *from TV cross join Laptops;
++----------+------------+-------------+------+------------+---------+
+| model_no | model_name | model_price | l_no | l_name     | l_price |
++----------+------------+-------------+------+------------+---------+
+|      105 | Panasonic  |       65000 |  101 | Dell       |   30000 |
+|      104 | TCL        |       50000 |  101 | Dell       |   30000 |
+|      103 | MI         |       35000 |  101 | Dell       |   30000 |
+|      102 | Sony       |       50000 |  101 | Dell       |   30000 |
+|      101 | Samsung    |       40000 |  101 | Dell       |   30000 |
+|      105 | Panasonic  |       65000 |  102 | Samsung    |   40000 |
+|      104 | TCL        |       50000 |  102 | Samsung    |   40000 |
+|      103 | MI         |       35000 |  102 | Samsung    |   40000 |
+|      102 | Sony       |       50000 |  102 | Samsung    |   40000 |
+|      101 | Samsung    |       40000 |  102 | Samsung    |   40000 |
+|      105 | Panasonic  |       65000 |  103 | Apple      |   80000 |
+|      104 | TCL        |       50000 |  103 | Apple      |   80000 |
+|      103 | MI         |       35000 |  103 | Apple      |   80000 |
+|      102 | Sony       |       50000 |  103 | Apple      |   80000 |
+|      101 | Samsung    |       40000 |  103 | Apple      |   80000 |
+|      105 | Panasonic  |       65000 |  104 | Lenovo     |   30000 |
+|      104 | TCL        |       50000 |  104 | Lenovo     |   30000 |
+|      103 | MI         |       35000 |  104 | Lenovo     |   30000 |
+|      102 | Sony       |       50000 |  104 | Lenovo     |   30000 |
+|      101 | Samsung    |       40000 |  104 | Lenovo     |   30000 |
+|      105 | Panasonic  |       65000 |  105 | HP         |   50000 |
+|      104 | TCL        |       50000 |  105 | HP         |   50000 |
+|      103 | MI         |       35000 |  105 | HP         |   50000 |
+|      102 | Sony       |       50000 |  105 | HP         |   50000 |
+|      101 | Samsung    |       40000 |  105 | HP         |   50000 |
+|      105 | Panasonic  |       65000 |  106 | DellVostro |   50000 |
+|      104 | TCL        |       50000 |  106 | DellVostro |   50000 |
+|      103 | MI         |       35000 |  106 | DellVostro |   50000 |
+|      102 | Sony       |       50000 |  106 | DellVostro |   50000 |
+|      101 | Samsung    |       40000 |  106 | DellVostro |   50000 |
+|      105 | Panasonic  |       65000 |  107 | Sony       |   50000 |
+|      104 | TCL        |       50000 |  107 | Sony       |   50000 |
+|      103 | MI         |       35000 |  107 | Sony       |   50000 |
+|      102 | Sony       |       50000 |  107 | Sony       |   50000 |
+|      101 | Samsung    |       40000 |  107 | Sony       |   50000 |
++----------+------------+-------------+------+------------+---------+
+35 rows in set (0.00 sec)
+
+mysql>
